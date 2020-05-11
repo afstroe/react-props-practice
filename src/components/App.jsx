@@ -1,5 +1,7 @@
 import React from "react";
 import contacts from "../contacts";
+import Avatar from "./avatar";
+import Detail from "./detail";
 
 function Card(props) {
   return (
@@ -7,14 +9,26 @@ function Card(props) {
       <div className="card">
         <div className="top">
           <h2 className="name">{props.name}</h2>
-          <img className="circle-img" src={props.imgURL} alt="avatar_img" />
+          <Avatar imgURL={props.imgURL} />
         </div>
         <div className="bottom">
-          <p className="info">{props.phone}</p>
-          <p className="info">{props.email}</p>
+          <Detail what={props.phone} />
+          <Detail what={props.email} />
         </div>
       </div>
     </div>
+  );
+}
+
+function createCard(contact) {
+  return (
+    <Card
+      key={contact.id}
+      name={contact.name}
+      phone={contact.phone}
+      email={contact.email}
+      imgURL={contact.imgURL}
+    />
   );
 }
 
@@ -22,7 +36,11 @@ function App() {
   return (
     <>
       <h1 className="heading">My Contacts</h1>
-      <Card
+      <Avatar imgURL="https://picsum.photos/200" />
+
+      {contacts.map(createCard)}
+
+      {/* <Card
         name={contacts[0].name}
         phone={contacts[0].phone}
         email={contacts[0].email}
@@ -39,7 +57,7 @@ function App() {
         phone={contacts[2].phone}
         email={contacts[2].email}
         imgURL={contacts[2].imgURL}
-      />
+      /> */}
     </>
   );
 }
